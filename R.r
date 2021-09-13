@@ -56,3 +56,18 @@ v1*3
 v1-3
 v2 <- v1+10
 v2
+x = c('male', 'female', 'female', 'female', 'male')
+x
+class(x)
+glevel=c('male', 'female')
+glevel
+class(glevel)
+gender1 <- factor(x, levels = glevel)
+gender1
+class(gender1)
+gender2 <- factor(c('male', 'female', 'female', 'female', 'male'), c('male', 'female'))
+gender2
+class(gender2)
+gender3 <- factor(c('male', 'female', 'female', 'female', 'male'))
+gender3
+class(gender3)
