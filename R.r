@@ -71,3 +71,13 @@ class(gender2)
 gender3 <- factor(c('male', 'female', 'female', 'female', 'male'))
 gender3
 class(gender3)
+#데이터프레임
+
+#2-30 데이터 프레임 만들기 
+name <- c("김철수", "이수지", "유소영", "장일순")
+kor <- c(96, 94, 84, 67)
+eng <- c(97, 92, 85, 79)
+math <- c(93, 88, 86, 68)
+grade <- factor(c("A", "A", "B", "C"))
+score <- data.frame(name,kor,eng,math, grade, stringsAsFactors = FALSE)
+score
