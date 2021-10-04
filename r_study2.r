@@ -225,6 +225,7 @@ nchar(var2)
 nchar(link_var1)
 
 nchar(slpit_var2)
+# splut_var2는 보류
 
 #3-6
 substr(link_var1, 0, 1) <- "U" 
