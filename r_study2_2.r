@@ -220,3 +220,22 @@ score[1,]
 
 score[score$name=="곽거병", c("kor", "eng")]
 
+# 리스트
+# 벡터, 매트릭스, 배열, 데이터프레임 등과 같은 서로 다른 구조의 데이터를 모두 포함하는 데이터를   1차원으로 저장
+
+#2-34
+data1 <- 1:4
+data2 <- matrix(1:6, 3, byrow=TRUE)
+data3 <- array(1:24, c(3,4,2))
+data4 <- data.frame(id =c(1,2,3,4), name=c("LEE", "PARK", "KIM", "SHIN"))
+
+list1 <- list(data1, data2, data3, data4)
+list1
+
+
+list2 <- list(data1=data1, data2=data2, data3=data3, data4=data4)
+list2
+
+list2$data1
+
+list2$data4
