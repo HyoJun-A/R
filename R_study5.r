@@ -76,3 +76,26 @@ path <- "/home/first/data/test.txt"
 path
 st_path <- strsplit(path, split = "/") #"/"를 기준으로 분리 
 st_path
+
+# substr() 함수로 문자열 추출하기 
+# substr(strings, start, end)
+number <- c("2020011042", "2019010015", "2020009030", "2018011024") # 학번번
+year <- substr(number, 1, 4) #입학년도 출력
+year
+
+dept <- substr(number, 5, 7) # 학과 코드 출력력
+dept
+
+num <- substr(number, 8, 10) # 번호 출력력
+num
+
+#substr()함수로 문자열 변경 하기 
+str <- "Hello, nice day"
+substr(str, 8, 11) <-"good"
+str
+
+#sub() , gsub() 함수 이용해서 문자 바꾸기 
+str <- "R is very good!! I love R"
+str
+sub("R","Python", str)
+gsub("R", "Python", str)
