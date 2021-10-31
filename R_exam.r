@@ -145,3 +145,146 @@ wt <- mtcars$wt
 mpg <- mtcars$mpg
 plot(wt, mpg, main="자동차 중량에 따른 연비", xlab="중량", ylab="연비", pch=21, col="red", bg="green", cex=1.5)
 
+mpg <- mtcars$mpg
+disp <- mtcars$disp
+hp <- mtcars$hp
+wt <- mtcars$wt
+data <- data.frame(mpg, disp, hp, wt)
+data
+pairs(data, main="자동차 산점도 행렬", col="blue")
+
+boxplot(mpg)$stats
+boxplot(formula=mpg~am, data=mtcars,
+        col=c("yellow", "green"),
+        xlim=c(0.5,2.5),
+        ylim=c(5, 40),
+        xlab="Transmission",
+        ylab="gallon",
+        names=c("automatic", "manual"))
+
+par(mfrow=c(2,3))
+x= 1:10
+y=c(10, 20 ,30, 40, 50 ,60, 70 ,80 ,90, 100)
+plot(x,y, type="o")
+plot(x,y, type="o")
+plot(x,y, type="o")
+plot(x,y, type="o")
+plot(x,y, type="o")
+plot(x,y, type="o")
+plot(x,y, type="o")
+plot(x,y, type="o")
+plot(x,y, type="o")
+
+par(mfrow=c(1,1))
+colnames(Orange)
+str(Orange)
+head(Orange)
+Orange$tree
+tree <- as.numeric(Orange$Tree)
+age <- range(Orange$age)
+cir <- range(Orange$circumference)
+plot(age, cir, type="o", xlab="age", ylab="Circumference")
+n <- max(tree)
+colors <- rainbow(n)
+tree
+linetype <- c(1:n)
+pchs <- c(1:n)
+
+for(i in 1:n){
+  temp <- subset(Orange, Tree ==i)
+  lines(temp$age, temp$circumference, type="b",
+       lwd=2, lty=linetype[i],
+       col=colors[i],pch=pchs[i])
+}
+
+title("Tree Growth graph")
+legend(age[1], cir[2], legend=1:n,
+       col= colors, cex=0.8, pch=pchs, lty=linetype)
+
+R1 <- c("I", "love", "R")
+R2 <- data.frame(R1, R4=c(1, 3, 2))
+R2
+class(R2)
+subset(R2, R1=="I")
+
+mycin <- as.data.frame(Puromycin)
+str(mycin)
+summary(mycin)
+mycin[2, 1] <- NA
+mycin[5, 2] <- NA
+mycin[7, 3] <- NA
+head(mycin, 7)
+
+is.na(mycin)
+is.na(mycin$conc)
+is.na(mycin[1:5,])
+
+sum(is.na(mycin))
+sum(is.na(mycin$conc))
+table(is.na(mycin))
+table(is.na(mycin$conc))
+
+sum(mycin$conc)
+sum(mycin$conc, na.rm=TRUE)
+
+mycin_omit <- na.omit(mycin)
+head(mycin_omit)
+mycin_rm <- mycin[complete.cases(mycin),]
+head(mycin)
+head(mycin_rm)
+
+head(mycin$conc)
+mycin$conc[is.na(mycin$conc)] = 0
+head(mycin$conc)
+head(mycin$rate)
+mycin$rate[is.na(mycin$rate)] = mean(mycin$rate, na.rm=T)
+head(mycin$rate)
+
+orange <- as.data.frame(Orange)
+head(orange, 8)
+table(orange$age)
+orange$age[10] <- 1100
+orange$age[20] <- 2000
+table(orange$age)
+orange$age <- ifelse(orange$age ==1100 | orange$age == 2000, NA, orange$age)
+table(orange$age)
+
+table(is.na(orange$age))
+orange$circumference[30] <- 400
+boxplot(orange$circumference)
+boxplot.stats(orange$circumference)
+
+orange$circumference <- ifelse(orange$circumference == 400, NA, orange$circumference)
+boxplot.stats(orange$circumference)$out
+
+table(is.na(orange$circumference))
+
+install.packages("dplyr")
+library(dplyr)
+mtcar1 <- mtcars
+head(mtcar1)
+str(mtcar1)
+
+str(mtcar1)
+
+select(mtcar1, mpg, cyl, vs)
+select(mtcar1, -am, -gear, -carb)
+mtcar1 %>% select(mpg, cyl, vs)
+
+mtcar1 %>% filter(cyl==6)
+
+mtcar1 %>% filter(gear==4) %>% select(mpg, cyl, disp)
+
+mtcar1 %>% filter(mpg>21) %>% select(disp, hp, wt)
+
+mtcar1 %>% slice(3:7)
+
+mtcar1 %>% arrange(mpg)
+mtcar1 %>% arrange(desc(mpg))
+mtcar1 %>% arrange(cyl, mpg)
+mtcar1 %>% distinct(cyl)
+
+mtcar1 %>% mutate(sec=qsec*4) %>% head
+
+mtcar1 %>% mutate(valid=ifelse(mpg >= mean(mpg), "pass", "fail")) %>% head
+
