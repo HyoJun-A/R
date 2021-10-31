@@ -288,3 +288,123 @@ mtcar1 %>% mutate(sec=qsec*4) %>% head
 
 mtcar1 %>% mutate(valid=ifelse(mpg >= mean(mpg), "pass", "fail")) %>% head
 
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(data = mtcars)
+ggplot(data = mtcars, mapping = aes(x= disp, y = mpg))
+
+ggplot(data=mtcars,aes(x=disp, y=mpg)) + geom_point(aes(color="red", size=3))
+
+ggplot(data = mtcars, aes(x=disp, y=mpg))+
+  geom_point()+
+  xlim(0, 500)+
+  ylim(0,40)+
+  theme_bw()+
+  ggtitle("mpg & disp scatter point")
+
+ggplot(data = mtcars, aes(x=disp, y=mpg))+
+  geom_point()+
+  xlim(0, 500)+
+  ylim(0, 40)+
+  theme_bw()+
+  ggtitle("mpg&disp scatter point")+
+  labs(x="배기량", y ="연비")+
+  theme(plot.title = element_text(size = 17, face='bold', color="blue", hjust=0.5),
+        axis.title=element_text(size=13),
+        axis.title.y=element_text(angle=0, vjust=0.5)
+  )
+
+ggplot(data=mtcars, aes(cyl)) + geom_bar()
+
+ggplot(data=Orange, aes(x=age, circumference)) + geom_bar(stat='identity', width=80, fill='red')
+
+ggplot(data=Orange,aes(x=age, y=circumference))+
+  geom_bar(stat = 'identity', fill="yellow", width=80)+
+  labs(x="나무의 나이", y="나무 둘레")+
+  ggtitle("나무의 나이에 따른 나무 둘레")+
+  theme(plot.title = element_text(size=15, face='bold', color='blue', hjust=0.5),
+        axis.title=element_text(size=13),
+        axis.title.y=element_text(angle=0, vjust=0.5))
+
+ggplot(data=Orange, aes(x=age, y=circumference, fill=Tree))+
+  geom_bar(stat='identity' )
+
+ggplot(data=Orange, aes(x=age, y=circumference, fill=Tree))+
+  geom_bar(stat='identity', position='dodge')
+
+ggplot(data=Orange, aes(x=age, y=circumference, fill=Tree))+
+  geom_bar(stat='identity' )+
+  coord_flip()
+
+ggplot(data=mtcars, aes(mpg))+
+  geom_histogram(binwidth=2)
+
+ggplot(data= mtcars, aes(mpg))+
+  geom_histogram(fill="yellow", color="green", binwidth=2)+
+  ggtitle("연비의 히스토그램")+
+  labs(x="연비", y="빈도")+
+  theme(plot.title = element_text(size=20, face='bold', color='black', hjust=0.5),
+        axis.title=element_text(size=15),
+        axis.title.y=element_text(angle=0, vjust=0.5))
+
+transm=factor(mtcars$am)
+ggplot(data=mtcars, aes(mpg, fill=transm))+
+  geom_histogram(binwidth = 6, position='dodge')
+
+ggplot(data=mtcars, aes(mpg, fill=transm))+
+  geom_histogram(binwidth = 6)
+
+install.packages("ggplot2")
+library(ggplot2)
+eco <- economics
+head(eco)
+
+ggplot(data=eco, aes(x=date, y=unemploy))+
+  geom_line(color="red", lwd=1)
+
+ggplot(data=eco, aes(x=date, y=unemploy))+
+  geom_line(color='red', lwd=1)+
+  geom_hline(yintercept = mean(eco$unemploy), color="blue", linetype='dashed')
+
+ggplot(Orange, aes(age, circumference, color=Tree))+
+  geom_line(linetype=2, size=2)
+
+ggplot(data=mtcars, aes(y=mpg))+
+  geom_boxplot(fill='red')
+
+ggplot(data =mtcars, aes(x=factor(cyl), y=mpg))+
+  geom_boxplot()+
+  labs(x="실린더", y="연비")+
+  ggtitle("실린더별 연비 상자그림")
+
+ggplot(data =mtcars, aes(y=mpg, fill=factor(cyl)))+
+  geom_boxplot()+
+  labs(x="실린더", y="연비", fill="cyl")+
+  ggtitle("실린더별 연비 상자그림")
+
+ggplot(data=mtcars, aes(x=factor(cyl), y=mpg, fill=factor(cyl)))+
+  geom_boxplot()+
+  labs(x="실린더", y="연비", fill="cyl")+
+  ggtitle("실린더별 연비 상자그림")
+
+ggplot(data=mtcars, aes(x=factor(cyl), y=mpg, fill=factor(cyl)))+
+  geom_boxplot(width=0.5, outlier.color='red', outlier.shape=2)+
+  labs(x="실린더",y="연비", fill='cyl')+
+  ggtitle("실린더별 연비 상자그림")+
+  theme(plot.title=element_text(size=20, face='bold', color='blue', hjust=0.5),
+        axis.title.y=element_text(angle=0, vjust=0.5))
+
+ggplot(data=mtcars, aes(x=factor(cyl), y=mpg, fill=factor(cyl)))+
+  geom_boxplot(outlier.shape=NA)+
+  labs(x="실린더",y="연비", fill='cyl')+
+  ggtitle("실린더별 연비 상자그림")+
+  theme(plot.title=element_text(size=20, face='bold', color='blue', hjust=0.5),
+        axis.title.y=element_text(angle=0, vjust=0.5))
+
+ggplot(data=mtcars,aes(x=factor(cyl),y=mpg, fill=factor(cyl)))+
+  geom_boxplot()+
+  stat_summary(fun="mean", geom='point', shape=21, size=3, fill="yellow")+
+  labs(x="실린더", y="연비", fill='cyl')+
+  ggtitle('실린더별 연비 상자그림')+
+  theme(plot.title=element_text(size=20, face='bold', color='blue', hjust=0.5),
+        axis.title.y=element_text(angle=0, vjust=0.5))
