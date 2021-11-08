@@ -52,6 +52,10 @@ geocode(location = '서울시청',
         source='google')
 
 # get_googlemap()함수의 네가지 지도 유형
+gc <- geocode(enc2utf8("강남구"))
+gc
+cen <- as.numeric(gc)
+cen
 map <- get_googlemap(center=cen, maptype = "terrain")
 ggmap(map)
 map <- get_googlemap(center=cen, maptype = "satellite")
@@ -60,3 +64,51 @@ map <- get_googlemap(center=cen, maptype = "roadmap")
 ggmap(map)
 map <- get_googlemap(center=cen, maptype = "hybrid")
 ggmap(map)
+
+# 지도의 크기설정 및 확대와 축소
+#size(320, 320)으로 설정 
+map1 <- get_googlemap(center = cen, maptype = "roadmap", size=c(320,320))
+ggmap(map1)
+
+#size(320, 320)으로 설정, zoom=8
+#zoom값을 주지 않으면 기본적으로 10으로 되어 있음 
+map1 <- get_googlemap(center = cen, maptype = "roadmap", size=c(320,320), zoom=8)
+ggmap(map1)
+
+#size(320, 320)으로 설정, zoom=13
+map1 <- get_googlemap(center = cen, maptype = "roadmap", size=c(320,320), zoom=13)
+ggmap(map1)
+
+#지도의 컬러 변경
+map1 <- get_googlemap(center = cen, maptype = "roadmap", color='bw')
+ggmap(map1)
+
+
+#extent 파라메터 설정에 의한 지도 출력
+map2 <- get_googlemap(center = cen, maptype = "roadmap")
+ggmap(map2)
+ggmap(map2, extent='nomal')
+ggmap(map2, extent="device")
+
+# 지도에 마커 출력하기 
+map3 <- get_googlemap(center = cen, maptype = "roadmap", marker=gc)
+ggmap(map3)
+
+#여러 개의 마커 출력하기
+names <- c("북한산국립공원", "설악산국립공원", "오대산국립공원", "치악산국립공원", "태백산국립공원")
+gc <- geocode(enc2utf8(names))
+df <- data.frame(name = names, lon = gc$lon, lat = gc$lat)
+cen2 <-c(mean(df$lon), mean(df$lat)) 
+map <- get_googlemap(center=cen2,
+                     maptype = 'roadmap',
+                     zoom=8,
+                     marker=gc)
+gmap <- ggmap(map)
+#마커에 명칭 출력
+# '+' 기호를 이용하여 geom_text()함수를 추가  
+gmap + geom_text(data = df,
+                 aes(x=lon, y=lat),
+                 size=3,
+                 label=df$name)
+
+# 기상자료 데이터 지도에 표시하기 
