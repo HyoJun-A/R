@@ -1,3 +1,4 @@
+# R 08장
 # ggmap 패키지 설치 및 로드 
 install.packages("ggmap")
 library(ggmap)
@@ -110,5 +111,3 @@ gmap + geom_text(data = df,
                  aes(x=lon, y=lat),
                  size=3,
                  label=df$name)
-
-# 기상자료 데이터 지도에 표시하기 
