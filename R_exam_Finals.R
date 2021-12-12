@@ -105,4 +105,82 @@ map1 + geom_point(data = df,
 
 
 # 9장 
+install.packages('rvest')
+library(rvest)
+library(xml2)
 
+# html 문서
+install.packages("curl")
+library(curl)
+
+url <- 'https://www.melon.com/chart/week/index.htm'
+html <- read_html(curl(url, handle = new_handle('useragent' = 'Chrome')))
+html
+
+
+m_css <- html_nodes(html, css='div.ellipsis.rank01')
+music_nodes <- html_nodes(m_css, 'a')
+head(music_nodes)
+
+
+m_xpath <- html_nodes(html, xpath = '//*[@id="lst50"]/td[6]/div/div/div[1]/span/a')
+head(m_1)
+
+# 가요제목 텍스트 추출
+m_text <- html_text(music_nodes)
+head(m_text, 10)
+
+m_text2 <- html_text(m_xpath)
+head(m_text2, 10)
+
+# 아티스트 텍스트 추출 - xpath 
+a_x <- html_nodes(html, xpath = '//*[@id="lst50"]/td[6]/div/div/div[2]/a')
+a_t_x <- html_text(a_x)
+head(a_t_x, 10)
+
+# -css
+a_c <- html_nodes(html, css = 'div.ellipsis.rank02')
+a_n <- html_nodes(a_c, 'a')
+a_t_c <- html_text(a_n)
+head(a_t_c, 10)
+
+# 9-9 아티스트 텍스트 추출 css수정
+a_c <- html_nodes(html, css= 'div.ellipsis.rank02')
+a_n <- html_nodes(a_c, ' span')
+a_n1 <- html_nodes(a_n, 'a')
+m_t_c <- html_text(a_n1)
+head(a_t_c1)
+
+a_t_c1 <- html_text(a_n1)
+head(a_t_c1)
+
+
+# 9-10 image
+url <- 'https://www.melon.com/chart/week/index.htm'
+img_html <- read_html(curl(url, handle = new_handle('useragent' = 'Chrome')))
+img_html
+img_nodes <- html_nodes(img_html, 'img')
+head(img_nodes)
+
+
+for(i in 3:12){
+  img_src[i-2] <- html_attr(img_nodes[i],"src")
+  download.file(img_src[i-2], paste("./output/img",i,".jpg",sep=""), mode = "wb")
+}
+
+# 9-11
+
+library(xml2)
+library(rvest)
+
+url <- "https://www.google.com/search?q=%EA%B3%A0%EC%96%91%EC%9D%B4&rlz=1C1CHBD_koKR969KR974&sxsrf=AOaemvLNPNX6lyXMakx2HP19R5CdKCqjbQ:1636940839238&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjXnfbpn5n0AhVcklYBHUvoBG8Q_AUoAXoECAEQAw&biw=1920&bih=912&dpr=1"
+html <- html_session(url)
+head(html)
+contents <- html_nodes(html, 'img')
+head(contents)
+img_url <- vector()
+for(i in 2:21){
+  img_url[i] <- html_attr(contents[i], 'src')
+  print(img_url[i])
+  download.file(img_url[i], paste("./image/cat",i,".jpg", sep=""), mode = "wb")
+}
