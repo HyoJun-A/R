@@ -184,3 +184,31 @@ for(i in 2:21){
   print(img_url[i])
   download.file(img_url[i], paste("./image/cat",i,".jpg", sep=""), mode = "wb")
 }
+
+# 13
+install.packages("mlbench")
+library(mlbench)
+
+data("Sonar", package = "mlbench")
+
+str(Sonar)
+
+# 13-2 훈련데이터와 검증데이터 정의
+ind <- c(1:50, 81:130, 151:200)
+
+# 13-3 모델 정의 
+install.packages("keras")
+library(keras)
+
+model <- keras_model_sequential() %>%
+  layer_dense(units = 24, activation = 'relu', input_shape = c(60)) %>%
+  layer_dense(units = 10, activation = 'relu') %>%
+  layer_dense(units = 1, activation = 'sigmoid')
+
+model %>% compile(
+  optimizer = 'adam',
+  loss = 'binary_crossentropy',
+  metrics = c("accuracy")
+)
+
+summary(model)
